@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: api-gateway
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: ms-user
+              uri: http://ms-user:8082
+              predicates:
+                - Path=/user/**,/admin/**
+              filters:
+                - RewritePath=/user/v3/api-docs(?<segment>/.*)?, /v3/api-docs${segment}
+
+            - id: ms-document
+              uri: http://ms-document:8083
+              predicates:
+                - Path=/documents/**,/document/**
+              filters:
+                - RewritePath=/documents/v3/api-docs(?<segment>/.*)?, /v3/api-docs${segment}
+
+            - id: ms-auth
+              uri: http://ms-auth:8085
+              predicates:
+                - Path=/auth/**
+              filters:
+                - RewritePath=/auth/v3/api-docs(?<segment>/.*)?, /v3/api-docs${segment}
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html
+    urls:
+      - name: ms-user
+        url: /user/v3/api-docs
+      - name: ms-document
+        url: /documents/v3/api-docs
+      - name: ms-auth
+        url: /auth/v3/api-docs
+    urls-primary-name: ms-user
+    display-request-duration: true
+    operations-sorter: method
+  api-docs:
+    enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true

@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: ms-user
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payment-database
+    username:
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      .hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+server:
+  port: 8082
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
