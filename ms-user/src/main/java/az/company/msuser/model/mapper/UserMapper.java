@@ -2,8 +2,8 @@ package az.company.msuser.model.mapper;
 
 import az.company.msuser.dao.entity.UserEntity;
 import az.company.msuser.model.enums.UserRoles;
-import az.company.msuser.model.request.UserRequest;
-import az.company.msuser.model.response.UserResponse;
+import az.company.msuser.model.dto.request.UserRequest;
+import az.company.msuser.model.dto.response.UserResponse;
 
 public enum UserMapper {
     USER_MAPPER;

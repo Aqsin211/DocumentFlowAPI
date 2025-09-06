@@ -30,12 +30,13 @@ public class UserConflictChecker {
                 .filter(u -> !u.getUserId().equals(userId))
                 .ifPresent(u -> { throw new UserExistsException(ErrorMessages.USER_EXISTS.getMessage()); });
 
-        userRepository.findByUsername(gmail)
+        userRepository.findByGmail(gmail)
                 .filter(u -> !u.getUserId().equals(userId))
                 .ifPresent(u -> { throw new UserExistsException(ErrorMessages.GMAIL_AT_USE.getMessage()); });
 
-        userRepository.findByUsername(phoneNumber)
+        userRepository.findByPhoneNumber(phoneNumber)
                 .filter(u -> !u.getUserId().equals(userId))
                 .ifPresent(u -> { throw new UserExistsException(ErrorMessages.PHONE_AT_USE.getMessage()); });
+
     }
 }
